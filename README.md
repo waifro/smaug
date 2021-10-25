@@ -1,4 +1,4 @@
-# Smaug v0.1
+# Smaug - The OSINT for database's
 ### Search inside every file, folder and subfolder for OSINT
 (based on the book The Hobbit, Smaug the dragon)
 
