@@ -8,32 +8,33 @@
 #include "ras.h"
 
 int main (int argc, char *argv[]) {
-printf("\n\n");
-printf("                              ...',;;:cccccccc:;,..\n");
-printf("                          ..,;:cccc::::ccccclloooolc;'.\n");
-printf("                       .',;:::;;;;:loodxk0kkxxkxxdocccc;;'..\n");
-printf("                     .,;;;,,;:coxldKNWWWMMMMWNNWWNNKkdolcccc:,.\n");
-printf("                  .',;;,',;lxo:...dXWMMMMMMMMNkloOXNNNX0koc:coo;.\n");
-printf("               ..,;:;,,,:ldl'   .kWMMMWXXNWMMMMXd..':d0XWWN0d:;lkd,\n");
-printf("             ..,;;,,'':loc.     lKMMMNl. .c0KNWNK:  ..';lx00X0l,cxo,.\n");
-printf("           ..''....'cooc.       c0NMMX;   .l0XWN0;       ,ddx00occl:.\n");
-printf("         ..'..  .':odc.         .x0KKKkolcld000xc.       .cxxxkkdl:,..\n");
-printf("       ..''..   ;dxolc;'         .lxx000kkxx00kc.      .;looolllol:'..\n");
-printf("       ..'..   .':lloolc:,..       'lxkkkkk0kd,   ..':clc:::;,,;:;,'..\n");
-printf("       ......  ....',;;;:ccc::;;,''',:loddol:,,;:clllolc:;;,'........\n");
-printf("           .    ....'''',,,;;:cccccclllloooollllccc:c:::;,'..\n");
-printf("                  .......'',,,,,,,,;;::::ccccc::::;;;,,''...\n");
-printf("                    ...............''',,,;;;,,''''''......\n");
-printf("                         ............................\n");
+    printf("\n\n");
+    printf("                              ...',;;:cccccccc:;,..\n");
+    printf("                          ..,;:cccc::::ccccclloooolc;'.\n");
+    printf("                       .',;:::;;;;:loodxk0kkxxkxxdocccc;;'..\n");
+    printf("                     .,;;;,,;:coxldKNWWWMMMMWNNWWNNKkdolcccc:,.\n");
+    printf("                  .',;;,',;lxo:...dXWMMMMMMMMNkloOXNNNX0koc:coo;.\n");
+    printf("               ..,;:;,,,:ldl'   .kWMMMWXXNWMMMMXd..':d0XWWN0d:;lkd,\n");
+    printf("             ..,;;,,'':loc.     lKMMMNl. .c0KNWNK:  ..';lx00X0l,cxo,.\n");
+    printf("           ..''....'cooc.       c0NMMX;   .l0XWN0;       ,ddx00occl:.\n");
+    printf("         ..'..  .':odc.         .x0KKKkolcld000xc.       .cxxxkkdl:,..\n");
+    printf("       ..''..   ;dxolc;'         .lxx000kkxx00kc.      .;looolllol:'..\n");
+    printf("       ..'..   .':lloolc:,..       'lxkkkkk0kd,   ..':clc:::;,,;:;,'..\n");
+    printf("       ......  ....',;;;:ccc::;;,''',:loddol:,,;:clllolc:;;,'........\n");
+    printf("           .    ....'''',,,;;:cccccclllloooollllccc:c:::;,'..\n");
+    printf("                  .......'',,,,,,,,;;::::ccccc::::;;;,,''...\n");
+    printf("                    ...............''',,,;;;,,''''''......\n");
+    printf("                         ............................\n");
 
-    printf("\n\n                        Smaug v0.1 (Lord of the Rings)\n            Search inside every file, folder and subfolder for OSINT\n");
+    printf("\n\n                        Smaug v0.1 (The Hobbit)\n            Search inside every file, folder and subfolder for OSINT\n");
     printf("    to carefully look for someone/something or try to find someone/something\n\n");
 
-    if (argv[1] == NULL) { printf("no command found, exit\n"); return 0; }
-    else if (argv[2] != NULL) { printf("too many commands, exit\n"); return 0; }
+    (void)argc; (void)argv;
 
+    char search[255];
+    if (ras_checkargv(argc, argv, search) != 0) return 0;
 
-    // get current diectory
+    // get current directory
     getcwd(rsd_cwdir, 255);
     printf("\ncurrent directory: %s\n\n", rsd_cwdir);
 
@@ -57,7 +58,7 @@ printf("                         ............................\n");
 
         }
 
-        else if (res == 1) ras_findargv(buffer, argv[1]);
+        else if (res == 1) ras_findargv(buffer, search);
 
         else if (res == -1) {
 

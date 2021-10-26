@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <dirent.h>
@@ -7,10 +8,50 @@
 #include "ras.h"
 
 FILE *ras_fd = NULL;
+char ras_head[10];
+char ras_tail[10];
+int ras_len;
 
-void ras_checkargv(void) {
-    // future update
-    return;
+int ras_checkargv(int argc, char **argv, char *result) {
+
+    if (argc < 2) {
+        printf("no command found, use '-h' or '--help' next time.\n");
+        return -1;
+    }
+
+    char commands[9][10] = {"-e", "--head", "-t", "--tail", "-l", "--length", "-h", "--help" };
+
+    for (int n = 1; n <= argc; n++) {
+
+        printf("head: %s\ntail: %s\nlength: %d\n", ras_head, ras_tail, ras_len);
+
+        for (int i = 0; i < 9; i++) {
+
+            if (strcmp(commands[i], argv[n]) == 0) {
+
+                if (i == 0 || i == 1) {
+                    strcpy(ras_head, argv[n+1]);
+                } else if (i == 2 || i == 3) {
+                    strcpy(ras_tail, argv[n+1]);
+                } else if (i == 4 || i == 5) {
+                    ras_len = atoi(argv[n+1]);
+                } else if (i == 6 || i == 7) {
+                    printf("[%s] >> see readme on github\n", argv[n]);
+                    return -1;
+                }
+            }
+        }
+    }
+
+    for (int n = 0; n <= ras_len; n++) {
+        if (n == 0) { strcpy(result, ras_head); n += strlen(ras_head); }
+        else if (n != ras_len) result[n] = '#';
+        if (n == ras_len) {strcpy(&result[n], ras_tail); break; }
+    }
+
+    printf("head: %s\ntail: %s\nlength: %d\nresult %s\n", ras_head, ras_tail, ras_len, result);
+
+    return 0;
 }
 
 int ras_openfile(char *path) {
@@ -57,12 +98,12 @@ void ras_findargv(char *file, char *text) {
 
         }
 
-        if (count == strlen(text)) printf("\n\nFOUND SOMETHING!!!!!!!!!!!!!\n\n%s\n\n", buffer);
-        else if (count < strlen(text) && count > 4) printf("\n\nFound something, mumble mumble... \n\n%s\n\n", buffer);
+        if (count == strlen(text)) printf("\n\nSmaug found the Arkenstone!\n\n%s\n\n", buffer);
+        else if (count < strlen(text) && count > 4) printf("\n\nSmaug found something, mumble mumble... \n\n%s\n\n", buffer);
 
     }
 
-    if (count == 0) printf("Not found the cat, searching still.. /%s                           \r", rsd_struct->d_name);
+    if (count == 0) printf("searching for the Arkenstone, searching still.. /%s                           \r", rsd_struct->d_name);
     else if (count > 4) printf("Found something, look below! Searching still.. /%s\n", rsd_struct->d_name);
 
     ras_closefile();
