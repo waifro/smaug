@@ -23,8 +23,6 @@ int ras_checkargv(int argc, char **argv, char *result) {
 
     for (int n = 1; n <= argc; n++) {
 
-        printf("head: %s\ntail: %s\nlength: %d\n", ras_head, ras_tail, ras_len);
-
         for (int i = 0; i < 9; i++) {
 
             if (strcmp(commands[i], argv[n]) == 0) {
