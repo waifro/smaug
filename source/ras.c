@@ -12,6 +12,37 @@ char ras_head[10];
 char ras_tail[10];
 int ras_len;
 
+int ras_checkparameters(void) {
+
+    if (strlen(ras_head) != 0) {
+        if (strlen(ras_tail) == 0) {
+            printf("missing tail parameter\n");
+            return -1;
+        } else if (ras_len == 0) {
+            printf("missing length parameter\n");
+            return -1;
+        }
+    } else if (strlen(ras_tail) != 0) {
+        if (strlen(ras_head) == 0) {
+            printf("missing head parameter\n");
+            return -1;
+        } else if (ras_len == 0) {
+            printf("missing length parameter\n");
+            return -1;
+        }
+    } else if (ras_len != 0) {
+        if (strlen(ras_tail) == 0) {
+            printf("missing tail parameter\n");
+            return -1;
+        } else if (strlen(ras_head) == 0) {
+            printf("missing head parameter\n");
+            return -1;
+        }
+    }
+
+    return 0;
+}
+
 int ras_checkargv(int argc, char **argv, char *result) {
 
     if (argc < 2) {
@@ -19,35 +50,52 @@ int ras_checkargv(int argc, char **argv, char *result) {
         return -1;
     }
 
+    if (argv[1][0] != '-') {
+        strcpy(result, argv[1]);
+        return 0;
+    }
+
     char commands[9][10] = {"-e", "--head", "-t", "--tail", "-l", "--length", "-h", "--help" };
 
-    for (int n = 1; n <= argc; n++) {
+    for (int n = 1; n < argc; n++) {
 
-        for (int i = 0; i < 9; i++) {
+        if (argv[n][0] != '-') continue;
+
+        for (int i = 0; i < 8; i++) {
 
             if (strcmp(commands[i], argv[n]) == 0) {
 
+                n++;
+
                 if (i == 0 || i == 1) {
-                    strcpy(ras_head, argv[n+1]);
+                    strcpy(ras_head, argv[n]);
+                    printf("head: %s\n", ras_head);
+                    break;
                 } else if (i == 2 || i == 3) {
-                    strcpy(ras_tail, argv[n+1]);
+                    strcpy(ras_tail, argv[n]);
+                    printf("tail: %s\n", ras_tail);
+                    break;
                 } else if (i == 4 || i == 5) {
-                    ras_len = atoi(argv[n+1]);
+                    ras_len = atoi(argv[n]);
+                    printf("length: %d\n", ras_len);
+                    break;
                 } else if (i == 6 || i == 7) {
-                    printf("[%s] >> see readme on github\n", argv[n]);
+                    printf("see readme on github\n");
                     return -1;
                 }
             }
         }
     }
 
-    for (int n = 0; n <= ras_len; n++) {
-        if (n == 0) { strcpy(result, ras_head); n += strlen(ras_head); }
-        else if (n != ras_len) result[n] = '#';
-        if (n == ras_len) {strcpy(&result[n], ras_tail); break; }
-    }
+    if (ras_checkparameters() != 0) return -1;
 
-    printf("head: %s\ntail: %s\nlength: %d\nresult %s\n", ras_head, ras_tail, ras_len, result);
+    int length = strlen(ras_head) + strlen(ras_tail);
+
+    for (int n = 0; n <= length; n++) {
+        if (n == 0) { strcpy(result, ras_head); n += strlen(ras_head); }
+        else if ((n + strlen(ras_tail)-1) == length) { strcat(result, ras_tail); break; }
+        else strcat(result, "#");
+    }
 
     return 0;
 }
@@ -67,7 +115,7 @@ void ras_closefile(void) {
     return;
 }
 
-void ras_findargv(char *file, char *text) {
+void ras_findargv(char *file, char *search) {
 
     if (ras_openfile(file) != 0) return;
 
@@ -83,26 +131,28 @@ void ras_findargv(char *file, char *text) {
         for (int n = 0; n < length_buf; n++) {
 
             if(door_once == true) {
-                if (text[count] != buffer[n]) {
+                if (search[count] == '#') {
+                    count++;
+                    continue;
+                }
+
+                if (search[count] != buffer[n]) {
                     door_once = false;
                     count = 0;
                     break;
                 } else count++;
             }
 
-            if (text[count] == buffer[n] && door_once == false) {
+            if (search[count] == buffer[n] && door_once == false) {
                 door_once = true; count++;
             }
 
         }
 
-        if (count == strlen(text)) printf("\n\nSmaug found the Arkenstone!\n\n%s\n\n", buffer);
-        else if (count < strlen(text) && count > 4) printf("\n\nSmaug found something, mumble mumble... \n\n%s\n\n", buffer);
+        if (count == strlen(search)) printf("------------\nSmaug found the Arkenstone!\n\n%s\n------------", buffer);
+        else if (count < strlen(search) && count > 4) printf("\n\nSmaug found a gem, mhm.. \n\n%s\n\n", buffer);
 
     }
-
-    if (count == 0) printf("searching for the Arkenstone, searching still.. /%s                           \r", rsd_struct->d_name);
-    else if (count > 4) printf("Found something, look below! Searching still.. /%s\n", rsd_struct->d_name);
 
     ras_closefile();
 
