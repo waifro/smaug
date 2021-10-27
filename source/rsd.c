@@ -10,13 +10,14 @@ struct dirent* rsd_struct;
 struct stat rsd_stat;
 int rsd_pos = 0;
 char rsd_cwdir[255];
+char rsd_wdirbak[255];
 
 void rsd_dirpath(char *cwdir, char *dir, char *result) {
     sprintf(result, "%s\\%s", cwdir, dir);
     return;
 }
 
-void rsd_gobackdir(char *src) {
+int rsd_gobackdir(char *src) {
 
     int length = strlen(src);
     for (int n = length; n > 0; n--) {
@@ -26,7 +27,9 @@ void rsd_gobackdir(char *src) {
         }
     }
 
-    return;
+    if (strcmp(rsd_cwdir, rsd_wdirbak) == 0) return -1;
+
+    return 0;
 }
 
 int rsd_lastopen(void) {
@@ -42,21 +45,24 @@ int rsd_lastopen(void) {
     return end;
 }
 
-void rsd_close(void) {
+int rsd_close(void) {
 
     // return last open position to close
     rsd_pos = rsd_lastopen();
 
-    // if rsd_pos is behind init, reset to zer0
-    rsd_pos -= 1;
-    if (rsd_pos <= 0) rsd_pos = 0;
+    printf("\n\n %d  dir: %s\n", rsd_pos, rsd_cwdir);
 
-    rsd_gobackdir(rsd_cwdir);
+    // if rsd_pos is behind init, reset to zer0
+    //rsd_pos -= 1;
+    if (rsd_pos <= 0) return -1;
+
+    if (rsd_gobackdir(rsd_cwdir) == -1) return -1;
 
     if (rsd_directory[rsd_pos] != NULL) { closedir(rsd_directory[rsd_pos]); rsd_directory[rsd_pos] = NULL; }
     rsd_pos -= 1;
 
-    return;
+    if (rsd_pos <= 0) return -1;
+    return 0;
 }
 
 void rsd_closeall(void) {

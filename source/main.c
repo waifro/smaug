@@ -37,12 +37,12 @@ int main (int argc, char *argv[]) {
 
     // get current directory
     getcwd(rsd_cwdir, 255);
+    strcpy(rsd_wdirbak, rsd_cwdir);
     printf("current directory: %s\n\n", rsd_cwdir);
     // open stream directory
     if (rsd_open(rsd_cwdir) == false) return 0;
 
     char buffer[255]; int res;
-
 
     char wheel[] = "|/-\\";
     int wheel_n = 0;
@@ -52,9 +52,10 @@ int main (int argc, char *argv[]) {
 
         if (res == 0) {
 
+            // rsd_read returns ./ and ../
             if (buffer[strlen(buffer)-1] != '.') {
 
-                printf("\rdir: %s\n", buffer);
+                printf("dir: %s rsd_pos[%d]\n", buffer, rsd_pos);
 
                 strcpy(rsd_cwdir, buffer);
                 if (rsd_open(rsd_cwdir) == false) return 0;
@@ -66,11 +67,14 @@ int main (int argc, char *argv[]) {
 
         else if (res == -1) {
             if (rsd_lastopen() == -1) break;
-            else  rsd_close();
+            else rsd_close();
         }
 
         if (wheel[wheel_n] == '\0') wheel_n = 0;
-        printf("Smaug is searching..%c\r", wheel[wheel_n]);
+
+        printf("Smaug is searching.. [%c]                                                   \r", wheel[wheel_n]);
+        //if (rsd_struct != NULL) printf("Smaug is searching.. [%c] %s                                                   \r", wheel[wheel_n], rsd_struct->d_name);
+        //else printf("Smaug changed direction..[%d]                                                   \n", rsd_lastopen());
         wheel_n++;
     }
 

@@ -61,7 +61,7 @@ int ras_checkargv(int argc, char **argv, char *result) {
 
         if (argv[n][0] != '-') continue;
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 9; i++) {
 
             if (strcmp(commands[i], argv[n]) == 0) {
 
@@ -79,7 +79,7 @@ int ras_checkargv(int argc, char **argv, char *result) {
                     ras_len = atoi(argv[n]);
                     printf("length: %d\n", ras_len);
                     break;
-                } else if (i == 6 || i == 7) {
+                } else if (i == 7 || i == 8) {
                     printf("see readme on github\n");
                     return -1;
                 }
@@ -127,30 +127,39 @@ void ras_findargv(char *file, char *search) {
 
         if (fgets(buffer, 255, ras_fd) == NULL) break;
 
-        length_buf = strlen(buffer) - 1;
-        for (int n = 0; n < length_buf; n++) {
+        length_buf = strlen(buffer);
+        for (int n = 0; n <= length_buf; n++) {
 
             if(door_once == true) {
+
+                // if encoutered IGNORE char, just count +1
                 if (search[count] == '#') {
                     count++;
                     continue;
                 }
 
+                // if char equals to char of buffer
                 if (search[count] != buffer[n]) {
                     door_once = false;
-                    count = 0;
+
+                    // if count hits more then 4, it survives for gem show
+                    if (count < 5) count = 0;
                     break;
-                } else count++;
+                }
+
+                else if (search[count] == buffer[n] && count == strlen(search)) break;
+                else if (search[count] == buffer[n]) count++;
             }
 
-            if (search[count] == buffer[n] && door_once == false) {
-                door_once = true; count++;
+            // opens once door when buffer hits first search char
+            if (door_once == false && search[count] == buffer[n]) {
+                door_once = true; count = 0; count++;
             }
 
         }
 
-        if (count == strlen(search)) printf("------------\nSmaug found the Arkenstone!\n\n%s\n------------", buffer);
-        else if (count < strlen(search) && count > 4) printf("\n\nSmaug found a gem, mhm.. \n\n%s\n\n", buffer);
+        if (count == strlen(search)) printf("------------------------\nSmaug found the Arkenstone!\n\n%s\n------------------------\n", buffer);
+        //else if (count < strlen(search) && count > 4) printf("---------------------\nSmaug found a gem, mhm.. \n\n%s\n---------------------\n", buffer);
 
     }
 
