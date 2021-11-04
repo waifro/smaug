@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "directory.h"
+#include "core.h"
 
 int main (int argc, char *argv[]) {
     (void)argc; (void)argv;
 
-    DIR_Testing();
+    CORE_Testing();
 
     return 0;
 }
