@@ -5,13 +5,17 @@ char dir_startf[256];
 DIR dir_tree[256];
 int dir_subf;
 
-int DIR_OperateFolder(void) {
+int DIR_OperativeFolder(void) {
 
-    chdir()
+    getcwd(dir_startf, 256);
 
     return 0;
 }
 
+int DIR_IsFolder(void) {
+
+    return 0;
+}
 
 int DIR_OpenFolder(char *pathdir) {
 
