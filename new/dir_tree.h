@@ -3,8 +3,10 @@
 
 #include <dirent.h>
 
+// buffer for writing current filename
+extern char dir_cwbuffer[256];
 // dir_startf is the directories starting point
-//extern char dir_startf[256];
+extern char dir_startf[256];
 // dir_tree is all stream subdirs
 extern DIR *dir_tree[256];
 // dir_subf keeps track of stream dir_tree
@@ -14,6 +16,6 @@ extern struct dirent *dir_struct;
 
 int DIR_OpenFolder(char *pathdir);
 int DIR_ReadFolder(void);
-int DIR_CloseFolder(char *cwdir);
+int DIR_CloseFolder(void);
 
 #endif
