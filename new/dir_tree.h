@@ -15,7 +15,7 @@ extern int dir_subf;
 extern struct dirent *dir_struct;
 
 int DIR_OpenFolder(char *pathdir);
-int DIR_ReadFolder(void);
+int DIR_ReadFolder(char *pathdir);
 int DIR_CloseFolder(void);
 
 #endif

@@ -11,7 +11,7 @@ struct dirent *dir_struct;
 int DIR_OpenFolder(char *pathdir) {
 
     // if asnt still been opened the folder, keep track of stream
-    if (dir_subf != 0) dir_subf++;
+    dir_subf++;
     if (dir_subf >= 255) return -1;
 
     dir_tree[dir_subf] = opendir(pathdir);
@@ -20,12 +20,12 @@ int DIR_OpenFolder(char *pathdir) {
     return 0;
 }
 
-int DIR_ReadFolder(void) {
+int DIR_ReadFolder(char *pathdir) {
 
     dir_struct = readdir(dir_tree[dir_subf]);
     if (dir_struct == NULL) return -1;
 
-    sprintf(dir_cwbuffer, "%s\\%s", getcwd(NULL, 256), dir_struct->d_name);
+    sprintf(dir_cwbuffer, "%s\\%s", pathdir, dir_struct->d_name);
 
     return 0;
 }

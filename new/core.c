@@ -6,7 +6,8 @@
 void CORE_Testing(void) {
 
     char folder[256];
-    DIR_OperativeTree(folder);
+    getcwd(dir_startf, 256);
+    strcpy(folder, dir_startf);
 
     printf("cwd: %s\n", folder);
 
@@ -16,15 +17,18 @@ void CORE_Testing(void) {
         if (isfolder < 0 && dir_subf < 0) break;
         if (DIR_OpenFolder(folder) != 0) perror("# DIR_OpenFolder()");
 
-        printf("\n%s\n", dir_cwbuffer);
+        printf("\n2: %s\n", folder);
+        printf("\n3: %s\n", dir_cwbuffer);
 
         while(1) {
 
-            if (DIR_ReadFolder() != 0) {
+            if (DIR_ReadFolder(folder) != 0) {
                 perror("# DIR_ReadFolder()");
                 DIR_CloseFolder();
                 break;
             }
+
+            printf("\n4: %s\n", dir_cwbuffer);
 
             isfolder = DIR_IsFolder(NULL);
             if (isfolder >= 0) {
