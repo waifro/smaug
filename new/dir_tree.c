@@ -8,14 +8,16 @@ DIR *dir_tree[256];
 int dir_subf;
 struct dirent *dir_struct;
 
-int DIR_OpenFolder(char *pathdir) {
+int DIR_OpenFolder(char *pathdir, int init) {
 
     // if asnt still been opened the folder, keep track of stream
-    dir_subf++;
-    if (dir_subf >= 255) return -1;
+    if (strcmp(pathdir, dir_startf) != 0) dir_subf++;
+    else if (strcmp(pathdir, dir_startf) == 0 && init == 0) return -1;
+
+    if (dir_subf >= 255) return -2;
 
     dir_tree[dir_subf] = opendir(pathdir);
-    if (&dir_tree[dir_subf] == NULL) return -2;
+    if (dir_tree[dir_subf] == NULL) return -3;
 
     return 0;
 }
