@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <errno.h>
 #include "dir_tree.h"
 #include "dir_operate.h"
 
@@ -16,18 +16,17 @@ void CORE_Testing(void) {
     int isfolder = -1;
     while(1) {
 
-        printf("\n3: [%d] %s\n", dir_subf, folder);
-
         while(1) {
 
             if (DIR_ReadFolder(folder) != 0) {
-                perror("# DIR_ReadFolder()");
-                DIR_CloseFolder();
+                
+                if (errno != 0) perror("# DIR_ReadFolder()");
+                else printf("Close dir: %s\n", folder);
+
+                DIR_CloseFolder(folder);
                 isfolder = -1;
                 break;
             }
-
-            printf("\n4: [%d] %s\n", dir_subf, dir_cwbuffer);
 
             isfolder = DIR_IsFolder(dir_cwbuffer);
             if (isfolder >= 0) {
@@ -41,18 +40,14 @@ void CORE_Testing(void) {
                     printf(" Dir: %s\n", dir_cwbuffer);
                     strcpy(folder, dir_cwbuffer);
 
-                    printf("\n1: [%d] %s\n", dir_subf, folder);
+                    if (DIR_OpenFolder(folder, 0) != 0) perror("# DIR_OpenFolder()");
 
-                    break;
                 }
 
             } else break;
 
         }
 
-        printf("\n2: [%d] %s\n", dir_subf, dir_cwbuffer);
-
-        if (DIR_OpenFolder(folder, 0) != 0) perror("# DIR_OpenFolder()");
         if (isfolder < 0 && dir_subf < 0) break;
     }
 

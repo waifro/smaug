@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "dir_tree.h"
+#include "dir_operate.h"
 
 char dir_cwbuffer[256];
 char dir_startf[256];
@@ -32,7 +33,7 @@ int DIR_ReadFolder(char *pathdir) {
     return 0;
 }
 
-int DIR_CloseFolder(void) {
+int DIR_CloseFolder(char *pathdir) {
 
     if (dir_tree[dir_subf] != NULL) {
         closedir(dir_tree[dir_subf]);
@@ -42,6 +43,8 @@ int DIR_CloseFolder(void) {
     // go back anyways; if still zero then stream dir is still OK
     dir_subf--;
     if (dir_subf <= -1) return -1;
+
+    if (DIR_BlenchFolder(pathdir) != 0) return -2;
 
     return 0;
 }

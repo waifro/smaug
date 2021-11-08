@@ -31,14 +31,12 @@ int DIR_IsFolder(char *pathname) {
     else return 0;
 }
 
-/*
 int DIR_BlenchFolder(char *pathdir) {
 
     int strlength = strlen(pathdir);
     for (int n = strlength; n > 0; n--) {
-        if (cwdir[n] == '\') { dir_startf[n] = '\0'; return 0; }
+        if (pathdir[n] == '\\') { pathdir[n] = '\0'; return 0; }
     }
 
     return -1;
 }
-*/
