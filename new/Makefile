@@ -1,4 +1,4 @@
-SOURCE := main.c core.c dir_tree.c dir_operate.c
+SOURCE := main.c core.c dir_tree.c dir_operate.c argv_parse.c
 
 ODIR := output
 dummy_build_folder := $(shell mkdir $(ODIR))

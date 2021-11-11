@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <errno.h>
+#include "argv_parse.h"
+
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-void CORE_Testing(void) {
+void CORE_Testing(int argc, char *argv[]) {
 
+    if (ARGV_SegmentArgv(argc, argv) != 0) return;
+
+    /*
     char folder[256];
     getcwd(dir_startf, 256);
     strcpy(folder, dir_startf);
@@ -19,7 +24,7 @@ void CORE_Testing(void) {
         while(1) {
 
             if (DIR_ReadFolder(folder) != 0) {
-                
+
                 if (errno != 0) perror("# DIR_ReadFolder()");
                 else printf("Close dir: %s\n", folder);
 
@@ -50,6 +55,7 @@ void CORE_Testing(void) {
 
         if (isfolder < 0 && dir_subf < 0) break;
     }
+    */
 
     return;
 }
