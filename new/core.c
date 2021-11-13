@@ -5,7 +5,7 @@
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-void CORE_Testing(int argc, char *argv[]) {
+void CORE_StartSequence(int argc, char *argv[]) {
 
     if (ARGV_SegmentArgv(argc, argv) != 0) return;
 

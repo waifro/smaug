@@ -4,7 +4,7 @@
 int main (int argc, char *argv[]) {
     (void)argc; (void)argv;
 
-    CORE_Testing(argc, argv);
+    void CORE_StartSequence(int argc, char *argv[]);
 
     return 0;
 }

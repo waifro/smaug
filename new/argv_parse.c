@@ -34,6 +34,7 @@ int ARGV_SegmentArgv(int argc, char *argv[]) {
             break;
         }
 
+        // temporary
         else if (i == -1) {
             strncpy(argv_stdin, argv[n], 256);
             break;
