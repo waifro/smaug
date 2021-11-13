@@ -4,18 +4,13 @@
 // curtesy of @SegFault42 :) Define to count nb element in char **
 #define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
 
-extern char argv_stdin[256];
+#define DEBUG 1
+
+extern char argv_strin[256];
 
 // add more argvs (ex. files input out etc..)
-char *argv_argv[256] = {
-    "-h",
-    "--help"
-};
+extern char *argv_argv[256];
 
-char *argv_comment[256] = {
-    "no argv, use '-h' next time.",
-    "invalid command",
-    "usage: smaug <argv_to_search> | ex. \"smaug helloworld\""
-};
+extern char *argv_comment[256];
 
 #endif

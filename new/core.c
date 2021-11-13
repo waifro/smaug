@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include <errno.h>
+#include <errno.h>
 #include <stdlib.h>
-#include "argv_parse.h"
+#include <stdbool.h>
 
+#include "argv_parse.h"
+#include "argv_variable.h"
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-int CORE_OpenFile(char *pathfile, FILE *stream) {
+int CORE_OpenFile(FILE *stream, char *pathfile) {
 
     stream = fopen(pathfile, "r");
     if (stream == NULL) return -1;
+
+    if (DEBUG == 1) printf("# CORE_OpenFile(): stream: %p\n", stream);
 
     return 0;
 }
@@ -23,18 +28,52 @@ int CORE_CloseFile(FILE *stream) {
     return 0;
 }
 
+// strout: copy buf to strout
+int CORE_ReadFile(FILE *stream, char *strout) {
+
+    char buf[256];
+    if (fgets(buf, 255, stream) == NULL) return -1;
+
+    if (DEBUG == 1) printf("# CORE_ReadFile(): stream: %p\n", stream);
+
+    if (feof(stream) != 0) return -2;
+    if (strlen(buf) > 254) return -3;
+
+    strcpy(strout, buf);
+
+    return 0;
+}
+
+// strin: variable for search
+int CORE_SearchString(char *strin, char *buffer) {
+
+    int i = strlen(buffer) + 1; int j;
+    bool check = false; // int count;
+    for (int n = 0; n < i; n++) {
+
+        if (check == true) {
+            if (strin[j] == '#') { j+= 1; continue; }
+            if (strin[j] == buffer[n]) {j+= 1; continue; }
+            if (strin[j] != buffer[n]) break;
+        }
+
+        if (check == false && strin[j] == buffer[n]) { j+= 1; check = true; }
+    }
+
+    return j;
+}
+
 void CORE_StartSequence(int argc, char *argv[]) {
 
     if (ARGV_SegmentArgv(argc, argv) != 0) return;
 
-    /*
     char folder[256];
     getcwd(dir_startf, 256);
     strcpy(folder, dir_startf);
 
-    if (DIR_OpenFolder(folder, 1) != 0) { perror("# DIR_OpenFolder()"); return; }
+    if (DIR_OpenFolder(folder, 1) != 0) { if (DEBUG == 1) perror("# DIR_OpenFolder()"); return; }
 
-    printf("\ncwd: %s\n", folder);
+    if (DEBUG == 1) printf("\ncwd: %s\nargv_strin: %s\n", folder, argv_strin);
 
     int isfolder = -1;
     while(1) {
@@ -43,7 +82,7 @@ void CORE_StartSequence(int argc, char *argv[]) {
 
             if (DIR_ReadFolder(folder) != 0) {
 
-                if (errno != 0) perror("# DIR_ReadFolder()");
+                if (errno != 0) { if (DEBUG == 1) perror("# DIR_ReadFolder()"); }
                 else printf("Close dir: %s\n", folder);
 
                 DIR_CloseFolder(folder);
@@ -56,6 +95,17 @@ void CORE_StartSequence(int argc, char *argv[]) {
 
                 if (isfolder == 0) {
                     printf("File: %s\n", dir_cwbuffer);
+
+                    FILE *fd = NULL; char buf[256];
+                    if (CORE_OpenFile(fd, dir_cwbuffer) != 0) { if (DEBUG == 1) perror("# CORE_OpenFile()"); break; }
+
+                    for (int n = 0; ; n++) {
+                        if (CORE_ReadFile(fd, buf) != 0) { if (DEBUG == 1) perror("# CORE_ReadFile"); break; }
+                        if (CORE_SearchString(argv_strin, buf) != 0) printf("\nFound Something:\n# %s #\n", buf);
+                    }
+
+                    CORE_CloseFile(fd);
+
                 }
 
                 // skips ".."
@@ -63,7 +113,7 @@ void CORE_StartSequence(int argc, char *argv[]) {
                     printf(" Dir: %s\n", dir_cwbuffer);
                     strcpy(folder, dir_cwbuffer);
 
-                    if (DIR_OpenFolder(folder, 0) != 0) perror("# DIR_OpenFolder()");
+                    if (DIR_OpenFolder(folder, 0) != 0) { if (DEBUG == 1) perror("# DIR_OpenFolder()"); }
 
                 }
 
@@ -73,7 +123,6 @@ void CORE_StartSequence(int argc, char *argv[]) {
 
         if (isfolder < 0 && dir_subf < 0) break;
     }
-    */
 
     return;
 }

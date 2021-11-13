@@ -4,7 +4,7 @@
 #include "argv_parse.h"
 #include "argv_variable.h"
 
-char argv_stdin[256];
+//char argv_strin[256];
 
 int ARGV_CompareArgv(char *buffer) {
 
@@ -36,7 +36,7 @@ int ARGV_SegmentArgv(int argc, char *argv[]) {
 
         // temporary
         else if (i == -1) {
-            strncpy(argv_stdin, argv[n], 256);
+            strncpy(argv_strin, argv[n], 256);
             break;
         }
     }
