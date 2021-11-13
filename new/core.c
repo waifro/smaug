@@ -1,9 +1,27 @@
 #include <stdio.h>
 #include <errno.h>
+#include <stdlib.h>
 #include "argv_parse.h"
 
 #include "dir_tree.h"
 #include "dir_operate.h"
+
+int CORE_OpenFile(char *pathfile, FILE *stream) {
+
+    stream = fopen(pathfile, "r");
+    if (stream == NULL) return -1;
+
+    return 0;
+}
+
+int CORE_CloseFile(FILE *stream) {
+
+    if (fclose(stream) != EOF) {
+        free(stream); stream = NULL;
+    } else return -1;
+
+    return 0;
+}
 
 void CORE_StartSequence(int argc, char *argv[]) {
 
