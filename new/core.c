@@ -9,20 +9,21 @@
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-int CORE_OpenFile(FILE *stream, char *pathfile) {
+FILE *CORE_OpenFile(char *pathfile) {
 
+    FILE *stream = NULL;
     stream = fopen(pathfile, "r");
-    if (stream == NULL) return -1;
+    if (stream == NULL) return NULL;
 
     if (DEBUG == 1) printf("# CORE_OpenFile(): stream: %p\n", stream);
 
-    return 0;
+    return stream;
 }
 
 int CORE_CloseFile(FILE *stream) {
 
-    if (fclose(stream) != EOF) {
-        free(stream); stream = NULL;
+    if (fclose(stream) == EOF) {
+        stream = NULL;
     } else return -1;
 
     return 0;
@@ -32,7 +33,7 @@ int CORE_CloseFile(FILE *stream) {
 int CORE_ReadFile(FILE *stream, char *strout) {
 
     char buf[256];
-    if (fgets(buf, 255, stream) == NULL) return -1;
+    if (fgets(buf, 256, stream) == NULL) return -1;
 
     if (DEBUG == 1) printf("# CORE_ReadFile(): stream: %p\n", stream);
 
@@ -47,7 +48,7 @@ int CORE_ReadFile(FILE *stream, char *strout) {
 // strin: variable for search
 int CORE_SearchString(char *strin, char *buffer) {
 
-    int i = strlen(buffer) + 1; int j;
+    int i = strlen(buffer); int j = 0;
     bool check = false; // int count;
     for (int n = 0; n < i; n++) {
 
@@ -60,7 +61,8 @@ int CORE_SearchString(char *strin, char *buffer) {
         if (check == false && strin[j] == buffer[n]) { j+= 1; check = true; }
     }
 
-    return j;
+    if (strlen(strin) == j) return -1;
+    else return j;
 }
 
 void CORE_StartSequence(int argc, char *argv[]) {
@@ -97,18 +99,17 @@ void CORE_StartSequence(int argc, char *argv[]) {
                     printf("File: %s\n", dir_cwbuffer);
 
                     FILE *fd = NULL; char buf[256];
-                    if (CORE_OpenFile(fd, dir_cwbuffer) != 0) { if (DEBUG == 1) perror("# CORE_OpenFile()"); break; }
+                    if ((fd = CORE_OpenFile(dir_cwbuffer)) == NULL) { if (DEBUG == 1) perror("# CORE_OpenFile()"); break; }
 
                     for (int n = 0; ; n++) {
-                        if (CORE_ReadFile(fd, buf) != 0) { if (DEBUG == 1) perror("# CORE_ReadFile"); break; }
-                        if (CORE_SearchString(argv_strin, buf) != 0) printf("\nFound Something:\n# %s #\n", buf);
+                        if (CORE_ReadFile(fd, buf) != 0) { if (DEBUG == 1) perror("# CORE_ReadFile()"); break; }
+                        if (CORE_SearchString(argv_strin, buf) == -1) printf("\nFound Something [line:%d]:\n%s\n", n, buf);
                     }
 
                     CORE_CloseFile(fd);
-
                 }
 
-                // skips ".."
+                // skips "." (bug: skips even hidden files)
                 else if (isfolder == 1 && dir_struct->d_name[0] != '.') {
                     printf(" Dir: %s\n", dir_cwbuffer);
                     strcpy(folder, dir_cwbuffer);
