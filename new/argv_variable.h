@@ -4,7 +4,7 @@
 // curtesy of @SegFault42 :) Define to count nb element in char **
 #define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
 
-#define DEBUG 1
+#define DEBUG 0
 
 extern char argv_strin[256];
 
