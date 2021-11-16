@@ -5,7 +5,7 @@
 
 char argv_strin[256];
 char *argv_argv[256] = { "-h", "--help" };
-char *argv_comment[256] = { "\nno argv, use '-h' next time.\n", "\ninvalid command\n", "\nusage: smaug <argv_to_search>\n- ex. \"/~: smaug helloworld\"\n\nif you have problems not founding the argv, use '#' to ignore.\n- ex. \"/~: smaug hel######d\"\n" };
+char *argv_comment[256] = { "\nno argv, use '-h' next time.\n", "\ninvalid command\n", "\nusage: smaug <argv_to_search>\n- ex. \"/~: smaug helloworld\"\n\nif you have problems not founding argv, use '#' to ignore.\n- ex. \"/~: smaug hel######d\"\n" };
 
 int main (int argc, char *argv[]) {
     (void)argc; (void)argv;
