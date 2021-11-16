@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "argv_variable.h"
 #include "file_operate.h"
