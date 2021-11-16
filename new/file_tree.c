@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include <sys/stat.h>
 
 #include "argv_global.h"
 #include "file_tree.h"
@@ -36,6 +38,34 @@ int FILE_ReadFile(FILE *stream, char *strout) {
     if (strlen(buf) > 254) return -3;
 
     strcpy(strout, buf);
+
+    return 0;
+}
+
+int FILE_WriteOutput(const char *strin) {
+
+    char output[] = "output.txt";
+    FILE *fd;
+
+    // check once on boot if file exists
+    static bool check = false;
+    if (check == false) {
+
+        struct stat status;
+        if (stat(output, &status) != 0) {
+            // file doesnt exists, exit
+            check = true;
+        } else {
+            // file exists, starts at zero, exit
+            fd = fopen(output, "w");
+            fclose(fd);
+            check = true;
+        }
+    }
+
+    fd = fopen(output, "a+");
+    fprintf(fd, "%s", strin);
+    fclose(fd);
 
     return 0;
 }

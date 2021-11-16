@@ -13,6 +13,14 @@
 #include "dir_tree.h"
 #include "dir_operate.h"
 
+const char *CORE_ConjoinOutput(char *strin, int line) {
+
+    static char result[512] = {0};
+    sprintf((char*)result, "File: %s [line:%d] %s", dir_cwbuffer, line, strin);
+
+    return (result);
+}
+
 void CORE_StartSequence(int argc, char *argv[]) {
 
     if (ARGV_SegmentArgv(argc, argv) != 0) return;
@@ -49,9 +57,9 @@ void CORE_StartSequence(int argc, char *argv[]) {
                     FILE *fd = NULL; char buf[256];
                     if ((fd = FILE_OpenFile(dir_cwbuffer)) == NULL) { if (DEBUG == 1) perror("# FILE_OpenFile()"); break; }
 
-                    for (int n = 0; ; n++) {
+                    for (int n = 1; ; n++) {
                         if (FILE_ReadFile(fd, buf) != 0) { if (DEBUG == 1) perror("# FILE_ReadFile()"); break; }
-                        if (FILE_SearchString(argv_strin, buf) == -1) printf("\nFound Something [line:%d] %s\n", n, buf);
+                        if (FILE_SearchString(argv_strin, buf) == -1) FILE_WriteOutput(CORE_ConjoinOutput(buf, n));
                     }
 
                     FILE_CloseFile(fd);
