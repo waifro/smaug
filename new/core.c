@@ -6,7 +6,7 @@
 
 #include "file_operate.h"
 #include "argv_parse.h"
-#include "argv_variable.h"
+#include "argv_global.h"
 #include "dir_tree.h"
 #include "dir_operate.h"
 

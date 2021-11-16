@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "argv_variable.h"
+#include "argv_global.h"
 #include "file_operate.h"
 
 FILE *FILE_OpenFile(char *pathfile) {

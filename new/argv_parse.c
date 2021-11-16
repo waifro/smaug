@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "argv_parse.h"
-#include "argv_variable.h"
+#include "argv_global.h"
 
 //char argv_strin[256];
 

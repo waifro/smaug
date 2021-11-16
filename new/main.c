@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "core.h"
-#include "argv_variable.h"
+#include "argv_global.h"
 
 char argv_strin[256];
 char *argv_argv[256] = { "-h", "--help" };

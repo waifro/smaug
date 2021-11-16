@@ -1,5 +1,5 @@
-#ifndef ARGV_VARIABLE_H
-#define ARGV_VARIABLE_H
+#ifndef ARGV_GLOBAL_H
+#define ARGV_GLOBAL_H
 
 // curtesy of @SegFault42 :) Define to count nb element in char **
 #define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
