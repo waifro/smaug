@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>ù
+
+#include "file_operate.h"
 
 // strin: variable for search
 int FILE_SearchString(char *strin, char *buffer) {
