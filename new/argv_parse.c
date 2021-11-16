@@ -31,7 +31,7 @@ int ARGV_SegmentArgv(int argc, char *argv[]) {
 
         if (i == 0 || i == 1) {
             printf("%s\n", argv_comment[2]);
-            break;
+            return -1;
         }
 
         // temporary
