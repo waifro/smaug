@@ -4,6 +4,8 @@
 
 ![image_display](https://i.imgur.com/DCvMnqH.png)
 
+ps: in case you want to sort the database, use [smaug-db-sorter](https://github.com/waifro/smaug/tree/smaug-db-sorter), still under development, it might not give perfect results still. This statement will probably change in the future. By default, it doesn't delete any file after parsing the file, but you can uncomment the line which removes the file (under db_core.c).
+
 ### Windows builds only at the moment.
 
 It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.
