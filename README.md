@@ -1,20 +1,40 @@
-# Smaug - The OSINT for database's
+# smaug-db-sorter - organize and save space on your database
 ### Search inside every file, folder and subfolder for OSINT
 (based on the book The Hobbit, Smaug the dragon)
 
 ![image_display](https://i.imgur.com/DCvMnqH.png)
+(old screenshot)
 
 ### Windows builds only at the moment.
 
-It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.
-This tool has been created for utility to search inside every file the containing text input, not all files/folders are supported (with unsigned char) atm.
-Could be useful for osint individuals.
+smaug-db-sorter is a modified version of (smaug-commit-1c9de92)[https://github.com/waifro/smaug/commit/1c9de92c9c59e0c09a416e5dd84fa7bad6cb3546].
+
+```
+./database
+  -/db-sort
+    -/!symbols
+    -/!numbers
+    -/a-A
+    -/b-B
+    -/c-C
+    -/d-D
+    -/e-E
+    etc...
+```
+
+It sorts your database in the following directory tree, and also deletes the files successfully parsed (disabled by Default untill further developmnent).
+It also skips none `*.txt` files.
+
+## Compile:
+theres no third-party library involved other then mman-win32 for Windows builds.
+- Unix: run `Make` under `smaug-master` folder.
+- Windows: uncomment line 3 on Makefile, save, and run `Make` under `smaug-master` folder.
 
 ## usage:
 
-- Place it (smaug.exe) under the root directory containing all files and subfolders.
+- Place it (smaug-db-sorter.exe) under the root directory containing all files and subfolders.
 - Run cmd.exe inside that folder
-- run: smaug.exe text_variable 
-- Now you wait till it finishes searching. 
+- run: smaug-db-sorter
+- Now you wait till it finishes sorting.
 
-Under development, builds available under release.
+Under development, builds not available atm.
