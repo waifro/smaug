@@ -6,8 +6,6 @@
 
 (old screenshot)
 
-### Windows builds only at the moment.
-
 smaug-db-sorter is a modified version of [smaug-c9de92](https://github.com/waifro/smaug/commit/1c9de92c9c59e0c09a416e5dd84fa7bad6cb3546)
 
 
