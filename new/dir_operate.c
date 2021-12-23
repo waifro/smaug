@@ -35,7 +35,12 @@ int DIR_BlenchFolder(char *pathdir) {
 
     int strlength = strlen(pathdir);
     for (int n = strlength; n > 0; n--) {
+
+	#ifdef _WIN32
         if (pathdir[n] == '\\') { pathdir[n] = '\0'; return 0; }
+	#else
+	    if (pathdir[n] == '/') { pathdir[n] = '\0'; return 0; }
+	#endif
     }
 
     return -1;

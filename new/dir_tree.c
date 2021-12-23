@@ -27,9 +27,13 @@ int DIR_ReadFolder(char *pathdir) {
 
     dir_struct = readdir(dir_tree[dir_subf]);
     if (dir_struct == NULL) return -1;
-
-    sprintf(dir_cwbuffer, "%s\\%s", pathdir, dir_struct->d_name);
-
+	
+    #ifdef _WIN32
+    	sprintf(dir_cwbuffer, "%s\\%s", pathdir, dir_struct->d_name);
+    #else
+	    sprintf(dir_cwbuffer, "%s/%s", pathdir, dir_struct->d_name);
+    #endif
+    
     return 0;
 }
 
