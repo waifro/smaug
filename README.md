@@ -22,8 +22,8 @@
 <p align="Center">
     There are only available old Windows builds from smaug v0.1<br><br>
     It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.<br>
-    This tool has been created for utility to search inside every file the containing text input,<br>
-    not all files/folders are supported (outside UTF-8 unicode) atm.<br>
+    This tool has been created for utility to search inside every file which contains your input,<br>
+    and also not all files/folders are supported (outside UTF-8 unicode) atm.<br>
     Could be useful for osint individuals.<br>
 </p>
 
