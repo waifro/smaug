@@ -10,7 +10,8 @@
 </p>
 
 <p align="Center">
-    ps: in case you want to sort your database and save space, look on <a href="https://github.com/waifro/smaug/tree/smaug-db-sorter">smaug-db-sorter</a>
+    in case you want to sort your database and save space,<br>
+    look at the branch tree <a href="https://github.com/waifro/smaug/tree/smaug-db-sorter">smaug-db-sorter</a>
 </p>
 
 <p align="Center">
@@ -18,11 +19,21 @@
     <a href="https://github.com/waifro/smaug#usage">Usage</a>
 </p>
 
-### Windows builds only at the moment.
+<p align="Center">
+    There are only available old Windows builds from smaug v0.1<br><br>
+    It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.<br>
+    This tool has been created for utility to search inside every file the containing text input,<br>
+    not all files/folders are supported (outside UTF-8 unicode) atm.<br>
+    Could be useful for osint individuals.<br>
+</p>
 
-It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.
-This tool has been created for utility to search inside every file the containing text input, not all files/folders are supported (outside UTF-8 unicode) atm.
-Could be useful for osint individuals.
+<h1 align="Center" style="font-size:30px">Compile</h1>
+
+- Unix: run `make` inside `smaug-main`
+
+- Windows: 
+    - linux enviroment, example WSL or Chocolatey, run `make` inside `smaug-main`.
+    - otherwise, if you are running inside an IDE, just compile the program specifying the `Makefile` under `smaug-main`.
 
 <h1 align="Center" style="font-size:30px">Usage</h1>
 
