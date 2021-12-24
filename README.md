@@ -6,6 +6,8 @@
 
 ps: in case you want to sort your database and save space, look on [smaug-db-sorter](https://github.com/waifro/smaug/tree/smaug-db-sorter).
 
+<a href="https://github.com/waifro/smaug#usage">Usage</a>
+
 ### Windows builds only at the moment.
 
 It is **not** an online tool. This program scans your local database to search a variable you specified inside each file with bruteforce.
