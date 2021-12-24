@@ -1,10 +1,17 @@
-# Smaug - The OSINT for database's
-### Search inside every file, folder and subfolder for OSINT
-(based on the book The Hobbit, Smaug the dragon)
+<h1 align="Center" style="font-size:50px">Smaug - The OSINT for database's</h1>
 
-![image_display](https://i.imgur.com/DCvMnqH.png)
+<p align="Center">
+    Search inside every file, folder and subfolder for OSINT<br>
+    (based on the book The Hobbit, Smaug the dragon)
+</p>
 
-ps: in case you want to sort your database and save space, look on [smaug-db-sorter](https://github.com/waifro/smaug/tree/smaug-db-sorter).
+<p align="Center">
+    <a href="https://github.com/waifro/smaug"><img src="https://i.imgur.com/DCvMnqH.png"></a>
+</p>
+
+<p align="Center">
+    ps: in case you want to sort your database and save space, look on <a href="https://github.com/waifro/smaug/tree/smaug-db-sorter">smaug-db-sorter</a>
+</p>
 
 <p align="Center">
     <a href="https://github.com/waifro/smaug#usage">Compile</a> • 
@@ -17,7 +24,7 @@ It is **not** an online tool. This program scans your local database to search a
 This tool has been created for utility to search inside every file the containing text input, not all files/folders are supported (outside UTF-8 unicode) atm.
 Could be useful for osint individuals.
 
-## usage:
+<h1 align="Center" style="font-size:30px">Usage</h1>
 
 - Place it (smaug.exe) under the root directory containing all files and subfolders.
 - Run cmd.exe inside that folder
