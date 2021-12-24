@@ -10,8 +10,8 @@
 </p>
 
 <p align="Center">
-    in case you want to sort your database and save space,<br>
-    look at the branch tree <a href="https://github.com/waifro/smaug/tree/smaug-db-sorter">smaug-db-sorter</a>
+    in case you wanted to sort out your database to save up space,<br>
+    look at the tool under this branch <a href="https://github.com/waifro/smaug/tree/smaug-db-sorter">smaug-db-sorter</a>
 </p>
 
 <p align="Center">
