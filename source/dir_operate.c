@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
+#include <unistd.h>
 #include <stdbool.h>
 #include <sys/stat.h>
 
@@ -24,7 +25,7 @@ int DIR_OperativeTree(char *buffer) {
 int DIR_IsFolder(char *pathname) {
 
     struct stat format;
-    if (pathname == NULL) { if (stat(dir_struct->d_name, &format) != 0) return -1; }
+    if (pathname == NULL) return -1;
     else if (pathname != NULL) { if (stat(pathname, &format) != 0) return -2; }
 
     if (S_ISDIR(format.st_mode) == true) return 1;
@@ -36,11 +37,11 @@ int DIR_BlenchFolder(char *pathdir) {
     int strlength = strlen(pathdir);
     for (int n = strlength; n > 0; n--) {
 
-	#ifdef _WIN32
-        if (pathdir[n] == '\\') { pathdir[n] = '\0'; return 0; }
-	#else
-	    if (pathdir[n] == '/') { pathdir[n] = '\0'; return 0; }
-	#endif
+	    #ifdef _WIN32
+            if (pathdir[n] == '\\') { pathdir[n] = '\0'; return 0; }
+	    #else
+	        if (pathdir[n] == '/') { pathdir[n] = '\0'; return 0; }
+	    #endif
     }
 
     return -1;

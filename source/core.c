@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <errno.h>
 #include <errno.h>
+#include <string.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -26,8 +28,8 @@ void CORE_StartSequence(int argc, char *argv[]) {
     if (ARGV_SegmentArgv(argc, argv) != 0) return;
 
     char folder[256];
-    getcwd(dir_startf, 256);
-    strcpy(folder, dir_startf);
+    getcwd(folder, 256);
+    strcpy(dir_startf, folder);
 
     if (DIR_OpenFolder(folder, 1) != 0) { if (DEBUG == 1) perror("# DIR_OpenFolder()"); return; }
 

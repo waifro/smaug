@@ -3,7 +3,7 @@
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-char dir_cwbuffer[256];
+char dir_cwbuffer[1024];
 char dir_startf[256];
 DIR *dir_tree[256];
 int dir_subf;

@@ -4,7 +4,7 @@
 #include <dirent.h>
 
 // buffer for writing current filename
-extern char dir_cwbuffer[256];
+extern char dir_cwbuffer[1024];
 // dir_startf is the directories starting point
 extern char dir_startf[256];
 // dir_tree is all stream subdirs
