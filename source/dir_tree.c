@@ -3,7 +3,7 @@
 #include "dir_tree.h"
 #include "dir_operate.h"
 
-char dir_cwbuffer[260];
+char dir_cwbuffer[1024];
 char dir_startf[256];
 DIR *dir_tree[256];
 int dir_subf;
@@ -27,9 +27,13 @@ int DIR_ReadFolder(char *pathdir) {
 
     dir_struct = readdir(dir_tree[dir_subf]);
     if (dir_struct == NULL) return -1;
-
-    sprintf(dir_cwbuffer, "%s\\%s", pathdir, dir_struct->d_name);
-
+	
+    #ifdef _WIN32
+    	sprintf(dir_cwbuffer, "%s\\%s", pathdir, dir_struct->d_name);
+    #else
+	    sprintf(dir_cwbuffer, "%s/%s", pathdir, dir_struct->d_name);
+    #endif
+    
     return 0;
 }
 
