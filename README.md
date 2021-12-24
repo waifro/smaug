@@ -6,7 +6,10 @@
 
 ps: in case you want to sort your database and save space, look on [smaug-db-sorter](https://github.com/waifro/smaug/tree/smaug-db-sorter).
 
-<a href="https://github.com/waifro/smaug#usage">Usage</a>
+<p align="Center">
+    <a href="https://github.com/waifro/smaug#usage">Compile</a> • 
+    <a href="https://github.com/waifro/smaug#usage">Usage</a>
+</p>
 
 ### Windows builds only at the moment.
 
