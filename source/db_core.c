@@ -85,7 +85,7 @@ int DBCORE_SanitizeString(char *ptr, short int index) {
 
     int ptr_len = strlen(ptr) - 1;
     char *foo = ptr;
-    printf("\n\t# warning: strings equals, sanitizing ptr...");
+    printf("\n\t# warning: multiple strings, sanitizing ptr...");
     printf("\n\t# before: %d, %s", ptr_len, foo);
 
     for (int n = 0; n < index; n++) {
