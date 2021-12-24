@@ -15,7 +15,7 @@
 </p>
 
 <p align="Center">
-    <a href="https://github.com/waifro/smaug#usage">Compile</a> • 
+    <a href="https://github.com/waifro/smaug#compile">Compile</a> • 
     <a href="https://github.com/waifro/smaug#usage">Usage</a>
 </p>
 
