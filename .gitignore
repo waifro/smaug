@@ -1,4 +1,2 @@
-**/output
-**/output.txt
-**/settings.json
-.vscode/settings.json
+**/output*
+**/.vscode
