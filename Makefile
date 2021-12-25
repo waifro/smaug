@@ -5,4 +5,4 @@ dummy_build_folder := $(shell mkdir $(ODIR))
 OUTPUT := $(ODIR)/$(notdir $(CURDIR))
 
 all : $(SOURCE)
-	gcc $(SOURCE) -Wall -o $(OUTPUT)
+	gcc $(SOURCE) -g -Wall -Werror -fsanitize=undefined -o $(OUTPUT)
