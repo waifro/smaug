@@ -8,4 +8,4 @@ dummy_build_folder := $(shell mkdir $(ODIR))
 OUTPUT := $(ODIR)/$(notdir $(CURDIR))
 
 all : $(SOURCE)
-	gcc $(SOURCE) -g -Wall -Werror $(LIBMMAN) -o $(OUTPUT)
+	gcc $(SOURCE) -g -Wall -Werror -fsanitize=undefined $(LIBMMAN) -o $(OUTPUT)
