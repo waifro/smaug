@@ -6,6 +6,8 @@ extern char *CONSOLE_GREEN;
 extern char *CONSOLE_YELLOW;
 extern char *CONSOLE_RESET;
 
+extern char *glo_charfolder;
+
 char *strcpy_cinj(char *src, int index, char *ptr);
 int strlen_ctok(const char *ptr, char tok);
 size_t fdsize(int fd);

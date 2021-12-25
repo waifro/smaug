@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+#include "other.h"
 #include "db_core.h"
 #include "db_dir.h"
 #include "dir_operate.h"
@@ -76,7 +77,7 @@ int DBDIR_CheckAlphaStructure(char *ptr, char *result) {
     if (res == -1) return -1;
 
     // opening cw directory
-    sprintf(result, "%s\\%s", dbcore_startf, alpha[res]);
+    sprintf(result, "%s%s%s", dbcore_startf, glo_charfolder, alpha[res]);
 
     return 0;
 }
@@ -84,7 +85,7 @@ int DBDIR_CheckAlphaStructure(char *ptr, char *result) {
 int DBDIR_CopyRootFolder(char *folder) {
     char buffer[256];
     //DIR_BlenchFolder(folder);
-    sprintf(buffer, "%s\\db-sort", folder);
+    sprintf(buffer, "%s%sdb-sort", folder, glo_charfolder);
     strncpy(dbcore_startf, buffer, 256);
     return 0;
 }
@@ -99,6 +100,6 @@ int DBDIR_CheckFolder(char *folder) {
 
 const char *DBDIR_CreateFolder(char *folder) {
     static char dirfolder[1024] = {0};
-    sprintf(dirfolder, "%s\\%s", dbcore_startf, folder);
+    sprintf(dirfolder, "%s%s%s", dbcore_startf, glo_charfolder, folder);
     return (dirfolder);
 }

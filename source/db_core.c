@@ -144,7 +144,7 @@ int DBCORE_StartSequence(char *ptr) {
             return -1;
         }
 
-        sprintf(file_cwbuffer, "%s\\%d.txt", cwbuffer, count);
+        sprintf(file_cwbuffer, "%s%s%d.txt", cwbuffer, glo_charfolder, count);
 
         DBFILE_CheckFile(file_cwbuffer);
         FILE *fp = fopen(file_cwbuffer, "r+");
